@@ -39,12 +39,13 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   var a=[];
+   /*var a= new Array(len);
    var result = a.reduce(function(sum, current, index) {
        current=sum + index;
        return sum++;
    }, 0);
-   return(a);
+   return(a);*/
+    throw new Error('Not implemented');
 }
 
 
@@ -60,7 +61,11 @@ function generateOdds(len) {
  *    [] => [] 
  */
 function doubleArray(arr) {
-   throw new Error('Not implemented');
+    var doubled = [];
+    for (var i = 0; i < arr.length; i++) {
+        doubled.push(arr[i] * 2);
+    }
+    return (doubled);
 }
 
 
