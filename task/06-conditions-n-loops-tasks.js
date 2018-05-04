@@ -471,15 +471,17 @@ function getCommonDirectoryPath(pathes) {
     for(let i=0;i<pathes.length;i++)
         if(pathes[i].length<ln)ln=pathes[i].length;
     let i=0;
+
     while(i<ln)
     {
+        t = 1;
         for (let j = 1; j < pathes.length; j++)
         {
-            t = 1;
             if (pathes[0][i] === pathes[j][i]) t++;
-            else i=ln;
+            //else i=ln;
         }
         if (t % pathes.length === 0) str += pathes[0][i];
+        else i=ln;
         i++;
     }
     str=str.substr(0,str.lastIndexOf("/")+1);
@@ -506,7 +508,18 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let ans = [];
+    for (let i = 0; i < m1.length; i++) {
+        ans.push([]);
+        for (let j = 0; j < m2[0].length; j++) {
+            let sum = 0;
+            for (let k = 0; k < m2.length; k++) {
+                sum += m1[i][k] * m2[k][j];
+            }
+            ans[i].push(sum);
+        }
+    }
+    return ans;
 }
 
 
