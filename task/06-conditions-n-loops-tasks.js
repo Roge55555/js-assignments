@@ -359,7 +359,7 @@ function getDigitalRoot(num) {
  *   '[[][][[]]]' => true
  *   '[[][]][' => false
  *   '{)' = false
- *   '{[(<{[]}>)]}' = true 
+ *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
     let ans=0;
@@ -406,15 +406,60 @@ function isBracketsBalanced(str) {
  *   Date('2000-01-01 01:00:00.100'), Date('2015-01-02 03:00:05.000')  => '15 years ago'
  *
  */
-function timespanToHumanString(startDate, endDate) {
-    let x=startDate.getTime();
+function timespanToHumanString(xDate, endDate) {
+    let x=xDate.getTime();
     let y=endDate.getTime();
+    if (0 < y - x && y - x <= 1000 * 45) {
+        return "a few seconds ago";
+    }
+    if (y - x <= 1000 * 90) {
+        return "a minute ago";
+    }
+    if (y - x <= 1000 * 60 * 45) {
+        if ((y - x) / 1000 / 60 > parseInt((y - x) / 1000 / 60, 10) + 0.5)
+            return parseInt((y - x) / 1000 / 60 + 1, 10) + " minutes ago";
+        else
+            return parseInt((y - x) / 1000 / 60, 10) + " minutes ago";
+    }
+    if (y - x <= 1000 * 60 * 90) {
+        return "an hour ago";
+    }
+    if (y - x <= 1000 * 60 * 60 * 22) {
+        if ((y - x) / 1000 / 60 / 60 >
+            parseInt((y - x) / 1000 / 60 / 60, 10) + 0.5)
+            return parseInt((y - x) / 1000 / 60 / 60 + 1, 10) + " hours ago";
+        else
+            return parseInt((y - x) / 1000 / 60 / 60, 10) + " hours ago";
+    }
+    if (y - x <= 1000 * 60 * 60 * 36) {
+        return "a day ago";
+    }
+    if (y - x <= 1000 * 60 * 60 * 24 * 25) {
+        if ((y - x) / 1000 / 60 / 60 / 24 >
+            parseInt((y - x) / 1000 / 60 / 60 / 24, 10) + 0.5)
+            return parseInt((y - x) / 1000 / 60 / 60 / 24 + 1, 10) + " days ago";
+        else
+            return parseInt((y - x) / 1000 / 60 / 60 / 24, 10) + " days ago";
+    }
+    if (y - x <= 1000 * 60 * 60 * 24 * 45) {
+        return "a month ago";
+    }
+    if (y - x <= 1000 * 60 * 60 * 24 * 345) {
+        if ((y - x) / 1000 / 60 / 60 / 24 / 30 >
+            parseInt((y - x) / 1000 / 60 / 60 / 24 / 30, 10) + 0.5)
+            return parseInt((y - x) / 1000 / 60 / 60 / 24 / 30 + 1, 10) + " months ago";
+        else
+            return parseInt((y - x) / 1000 / 60 / 60 / 24 / 30, 10) + " months ago";
+    }
+    if (y - x <= 1000 * 60 * 60 * 24 * 545) {
+        return "a year ago";
+    }
 
-    if(0<x-y||y-x<=45*1000){return("a few seconds ago");}
-    if(y-x<=90*1000){return("a minute ago");}
-    if(y-x<=280){return((y-x)/1000/60," minute ago");}
-    if(22*1000*3600<startDate.getDate()-endDate.getDate()<36*1000*3600){return("a day ago");}
-    if(0<startDate.getDate()-endDate.getDate()<45)return("15 years ago");
+    if ((y - x) / 1000 / 60 / 60 / 24 / 365 >
+        parseInt((y - x) / 1000 / 60 / 60 / 24 / 365, 10) + 0.5) {
+        return parseInt((y - x) / 1000 / 60 / 60 / 24 / 365 + 1, 10) + " years ago";
+    }
+    return parseInt((y - x) / 1000 / 60 / 60 / 24 / 365, 10) + " years ago";
 }
 
 
