@@ -291,7 +291,25 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let res = [];
+    let arr = ccn.toString().split('').map(item => parseInt(item));
+    for (let i = 0; i < arr.length; i++) {
+        if (arr.length % 2 === 0) {
+            if (i % 2 === 0) {
+                res.push(arr[i] * 2 > 9 ? arr[i] * 2 - 9 : arr[i] * 2);
+            } else {
+                res.push(arr[i])
+            }
+        } else {
+            if (i % 2 !== 0) {
+                res.push(arr[i] * 2 > 9 ? arr[i] * 2 - 9 : arr[i] * 2);
+            } else {
+                res.push(arr[i])
+            }
+        }
+    }
+    let sum = res.reduce((sum, item) => {return sum + item})
+    return Boolean(sum%10 === 0);
 }
 
 
@@ -344,7 +362,16 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    let ans=0;
+    for(let i=0;i<str.length;i++) {
+        if (str[i] === '<' || str[i] === '[' || str[i] === '{' )ans+=(str.charCodeAt(i)+2);
+        if (str[i] === '>' || str[i] === ']' || str[i] === '}' )ans-=(str.charCodeAt(i));
+        if(str[i] === '(')ans+=str.charCodeAt(i)+1;
+        if(str[i] === ')')ans-=str.charCodeAt(i);
+        if (ans<0){return(false);break;}
+            }
+    if(ans===0){return(true);}
+    else {return(false);}
 }
 
 
@@ -380,7 +407,14 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let x=startDate.getTime();
+    let y=endDate.getTime();
+
+    if(0<x-y||y-x<=45*1000){return("a few seconds ago");}
+    if(y-x<=90*1000){return("a minute ago");}
+    if(y-x<=280){return((y-x)/1000/60," minute ago");}
+    if(22*1000*3600<startDate.getDate()-endDate.getDate()<36*1000*3600){return("a day ago");}
+    if(0<startDate.getDate()-endDate.getDate()<45)return("15 years ago");
 }
 
 
@@ -404,7 +438,16 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    let ans = "";
+    while (num > 0) {
+        ans += String(num % n);
+        num = parseInt(num / n);
+    }
+    let lastans = "";
+    for (let i = ans.length - 1; i >= 0; i--) {
+        lastans += ans[i];
+    }
+    return lastans;
 }
 
 
@@ -421,7 +464,26 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    let ln=99999;
+    let k=0;
+    let t=0;
+    let str="";
+    for(let i=0;i<pathes.length;i++)
+        if(pathes[i].length<ln)ln=pathes[i].length;
+    let i=0;
+    while(i<ln)
+    {
+        for (let j = 1; j < pathes.length; j++)
+        {
+            t = 1;
+            if (pathes[0][i] === pathes[j][i]) t++;
+            else i=ln;
+        }
+        if (t % pathes.length === 0) str += pathes[0][i];
+        i++;
+    }
+    str=str.substr(0,str.lastIndexOf("/")+1);
+    return(str);
 }
 
 
