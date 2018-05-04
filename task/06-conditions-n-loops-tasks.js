@@ -519,7 +519,7 @@ function getMatrixProduct(m1, m2) {
             ans[i].push(sum);
         }
     }
-    return ans;
+    return (ans);
 }
 
 
