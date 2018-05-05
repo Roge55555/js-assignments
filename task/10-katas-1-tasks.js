@@ -128,8 +128,48 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
-}
+    let a=new Array(n);
+    for (let i=0; i<n; i++) {
+        a[i]=new Array(n);}
+    a[0][0]=0;
+    let num=1;
+    let ln=3;
+    if(n===1)return(a);
+    else
+
+    while(ln!=(n*2)+1){
+
+
+        if(ln%2!=0){
+            for(let i=0;i<n;i++)
+                for(let j=0;j<n;j++)
+                {
+                    if(i+j+2===ln)
+                    {
+                        a[i][j]=num;
+                        num++;
+                    }
+                }
+        }
+
+        if(ln%2===0){
+            for(let j=0;j<n;j++)
+                for(let i=0;i<n;i++)
+                {
+                    if(i+j+2===ln)
+                    {
+                        a[i][j]=num;
+                        num++;
+                    }
+                }
+        }
+        ln++;
+
+    }
+
+    return(a);
+    }
+
 
 
 /**
